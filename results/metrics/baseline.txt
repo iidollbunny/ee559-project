@@ -18,3 +18,5 @@ weighted avg       1.00      0.96      0.98     56962
 Confusion Matrix:
 [[54677  2187]
  [    8    90]]
+
+Prediction file saved to: D:\360MoveData\Users\zcyy\Desktop\EE 559\Project\ee559-project\results\predictions\logreg.csv

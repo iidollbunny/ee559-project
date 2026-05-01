@@ -10,9 +10,13 @@ from sklearn.metrics import classification_report, confusion_matrix
 # 1. Set paths
 # =========================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 data_path = os.path.join(BASE_DIR, "data", "creditcard.csv")
-results_dir = os.path.join(BASE_DIR, "results", "metrics")
-os.makedirs(results_dir, exist_ok=True)
+metrics_dir = os.path.join(BASE_DIR, "results", "metrics")
+predictions_dir = os.path.join(BASE_DIR, "results", "predictions")
+
+os.makedirs(metrics_dir, exist_ok=True)
+os.makedirs(predictions_dir, exist_ok=True)
 
 # =========================
 # 2. Load data
@@ -78,9 +82,25 @@ print("Model training completed.")
 # 6. Make predictions
 # =========================
 y_pred = model.predict(X_test)
+y_prob = model.predict_proba(X_test)[:, 1]
 
 # =========================
-# 7. Evaluate model
+# 7. Save prediction CSV
+# =========================
+pred_df = pd.DataFrame({
+    "id": range(len(y_test)),
+    "y_true": y_test.values,
+    "y_pred": y_pred,
+    "y_prob": y_prob
+})
+
+pred_path = os.path.join(predictions_dir, "logreg.csv")
+pred_df.to_csv(pred_path, index=False)
+
+print(f"\nPredictions saved to: {pred_path}")
+
+# =========================
+# 8. Evaluate model
 # =========================
 report = classification_report(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred)
@@ -92,9 +112,9 @@ print("Confusion Matrix:")
 print(cm)
 
 # =========================
-# 8. Save results to file
+# 9. Save results to file
 # =========================
-output_path = os.path.join(results_dir, "baseline.txt")
+output_path = os.path.join(metrics_dir, "baseline.txt")
 
 with open(output_path, "w", encoding="utf-8") as f:
     f.write("Logistic Regression Baseline Results\n")
@@ -108,6 +128,7 @@ with open(output_path, "w", encoding="utf-8") as f:
     f.write("Confusion Matrix:\n")
     f.write(str(cm))
     f.write("\n")
+    f.write(f"\nPrediction file saved to: {pred_path}\n")
 
 print(f"\nResults saved to: {output_path}")
 print("\nBaseline pipeline completed successfully.")
