@@ -87,6 +87,8 @@ EE559-PROJECT/
 ├── README.md
 └── .gitignore
 
+```text
+
 ## Methods
 
 We implemented and compared several supervised learning models for the fraud detection task.
