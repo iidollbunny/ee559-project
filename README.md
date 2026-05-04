@@ -86,8 +86,8 @@ EE559-PROJECT/
 │
 ├── README.md
 └── .gitignore
+```
 
-```text
 
 ## Methods
 
