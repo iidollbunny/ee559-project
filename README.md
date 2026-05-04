@@ -216,7 +216,7 @@ Among the tested models, Random Forest achieves the best overall balance between
 
 Responsible for data preprocessing, baseline model evaluation, evaluation pipeline, metric analysis, and final result interpretation.
 
-### [Teammate Name]
+### Xianlei Li
 
 Responsible for improved model training, Random Forest, MLP, SMOTE experiments, and model comparison experiments.
 
